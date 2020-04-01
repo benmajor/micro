@@ -1,0 +1,30 @@
+[
+    {
+        "forename": "Ben",
+        "surname": "Major",
+        "email": "ben.major88@gmail.com",
+        "age": 31
+    },
+    {
+        "forename": "Dave",
+        "surname": "Aaronson",
+        "email": "dave.aaron@gmail.com",
+        "age": 41
+    },
+    {
+        "forename": "Chris",
+        "surname": "Mr.Major",
+        "email": "chris.major@example.com",
+        "age": 63,
+        "tags": [
+            "dad",
+            "father"
+        ]
+    },
+    {
+        "forename": "Joe",
+        "surname": "Bloggs",
+        "email": "jbloggs@example.com",
+        "age": 45.587
+    }
+]

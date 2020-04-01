@@ -1,0 +1,274 @@
+{% include 'parts/header.twig' %}
+	{{ breadcrumbs() }}
+	
+	<h1>Plugin Demo</h1>
+
+	<p>
+		This is a simple demonstration of how to use plugins in Micro. Through a very useful hack of Slim's Twig-View component,
+		we can easily define extra template directories, and Twig will automatically load them. I am not entirely sure what will
+		happen when the same template exists in multiple folders, but I'm guessing it will attempt to load them in order...
+	</p>
+
+	<p>
+		I wonder what access we have here? I don't think it'll be much, since Slim hasn't actually loaded anything - it's just a direct hook into the
+		Request and Response objects. We might need to add some more functions that are useful to plugin authors; I can't think what those are at the moment,
+		but I will use this simple plugin as a list of some handy functions I think should be added. The next decision we need to make is whether these
+		should be accessed by using the <code>$this->app</code> global, or using static functions (e.g. <code>micro_get_content_directory()</code>).
+	</p>
+
+	<hr />
+
+	<h2>Handy functions to be added:</h2>
+
+	<ul>
+		<li><code>get_site_url()</code> &ndash; get the absolute URL for the current site.</li>
+		<li><code>get_content_directory()</code> &ndash; returns the root content directory.</li>
+		<li><code>parse_markdown()</code> &ndash; parse a Markdown formatted string.</li>
+		<li><code>create_url_slug()</code> &ndash; create a URL slug.</li>
+	</ul>
+	
+	<hr />
+	
+	<p>
+		We also need to think about how we're going to allow plugins to define their own content. They could be added to the plugin's own directory,
+		but I don't much like the idea, and I think it'd make more sense for each plugin to have its own content directory within the <code>/content/</code>
+		directory of the site. 
+	</p>
+	
+	<p>
+		The question is then though, how can they access the content, and how do we bypass it within the system? Perhaps plugins define their content
+		directories as underscored names (for example <code>_shop</code>, etc? That might be the best option, and would also allow us to bypass it when
+		parsing the site's content. I think that's probably the best solution. Views can still be managed within the plugin's own <code>views/</code> directory,
+		so building admin interfaces, etc. would make sense. 
+	</p>
+	
+	<p>
+		I think this is a good idea, and one that I'm going to pursue. Each plugin defines its own content directory (which is automatically appended with an underscore).
+		They can then access their content using a method from the built-in Plugin class, and add custom meta to it. This would in turn allow the site to be extended
+		<i>ad infinitum</i>.
+	</p>
+
+	<hr />
+
+	<p>
+		We have already added a significant of functions to <code>$app</code>, which should be ported across to static functions for plugin authors. They 
+		are as follows:
+	</p>
+
+	<p>
+		<code>addTwigGlobal( $name, $value )</code>:<br />
+		Add a global variable to the Twig environment.
+	</p>
+	<p>
+		<code>addRoute( $route, $callback, $method = 'get' )</code>:<br />
+		Add a new route to the Slim router.
+	</p>
+
+	<p>
+		<code>getMenu( $menuName )</code>:<br />
+		Retrieve a system-defined menu.
+	</p>
+
+	<p>
+		<code>getRequest()</code>:<br />
+		Retrieve the Slim PSR-7 Request object.
+	</p>
+
+	<p>
+		<code>getResponse()</code>:<br />
+		Retrieve the Slim PSR-7 Response object.
+	</p>
+
+	<p>
+		<code>getCurrentURI( $includeHost )</code>:<br />
+		Retrieve the current URI in the browser addressbar.
+	</p>
+
+	<p>
+		<code>getSiteURL()</code>:<br />
+		Returns the absolute URL for the website.
+	</p>
+
+	<p>
+		<code>getThemeDirectory()</code>:<br />
+		Returns the relative path to the currently-enabled theme.
+	</p>
+	
+	<p>
+		<code>getThemePathFor( $file, $absolute = false )</code>:<br />
+		Return the path to a file in the currently intalled theme directory (optionally relative or absolute).
+	</p>
+
+	<p>
+		<code>getContentPath()</code>:<br />
+		Returns the relative path to the content directory.
+	</p>
+
+	<p>
+		<code>getPlugins()</code>:<br />
+		Returns a list of enabled plugins.
+	</p>
+
+	<p>
+		<code>getContent()</code>:<br />
+		Returns a list of all published content.
+	</p>
+
+	<p>
+		<code>addContentItem( $url, $published = true, $type = 'page', $modified = null, $homepage = false )</code>:<br />
+		Add a new content item for returning by <code>getContent()</code>.
+	</p>
+
+	<p>
+		<code>addTemplatePath()</code>:<br />
+		Add a new template path to the Twig environment.
+	</p>
+
+	<p>
+		<code>parseMarkdown( $string )</code>:<br />
+		Parse and return a string from Markdown to HTML; uses <a href="https://github.com/erusev/parsedown" target="_blank">erusev/parsedown</a>.
+	</p>
+
+	<p>
+		<code>parseYaml( $obj, $assoc = true )</code>:<br />
+		Parse a string from YAML into a PHP array (or object); uses <a href="https://symfony.com/doc/current/components/yaml.html" target="_blank">symfony/yaml</a>.
+	</p>
+
+	<p>
+		<code>toYAML( $obj )</code>:<br />
+		Convert a PHP object to a YAML-encoded string; uses <a href="https://symfony.com/doc/current/components/yaml.html" target="_blank">symfony/yaml</a>.
+	</p>
+
+	<p>
+		<code>jqlQuery( $array )</code>:<br />
+		Create a new JQL query based on an array; uses <a href="https://github.com/benmajor/JQL" target="_blank">benmjaor/jql</a>.
+	</p>
+
+	<p>
+		<code>generateSlug( $slug )</code>:<br />
+		Slugify a string; uses <a href="https://github.com/ausi/slug-generator" target="_blank">ausi/slug-generator</a>.
+	</p>
+	
+	<p>
+		<code>setTitle( $title )</code>:<br />
+		Sets the meta title for use in the Twig theme.
+	</p>
+	
+	<p>
+		<code>getTitle()</code>:<br />
+		Returns the currently defined meta title for use in the Twig theme.
+	</p>
+	
+	<p>
+		<code>setCanonicalURL( $url )</code>:<br />
+		Sets the current canonical URL to be used in the Twig template.
+	</p>
+	
+	<p>
+		<code>getCanonicalURL()</code>:<br />
+		Returns the current canonical URL that is defined.
+	</p>
+	
+	<p>
+		<code>registerMenu( $file )</code>:<br />
+		Register a new menu that exists at the specific location.
+	</p>
+	
+	<p>
+		<code>registerCSSFile( $file )</code>:<br />
+		Register a new CSS file that should be included in <code>&lt;head&gt;</code> - called by the <code>micro_head()</code> Twig function.
+	</p>
+	
+	<p>
+		<code>registerJSFile( $file, $inFooter )</code>:<br />
+		Register a new JS file that should be included in either the <code>&lt;head&gt;</code> or before <code>&lt;/body&gt;</code> - called by the <code>micro_head()</code> and <code>micro_foot()</code> Twig functions.
+	</p>
+	
+	<p>
+		<code>pluginInstalled( $pluginName )</code>:<br />
+		Checks if a specific plugin is installed.<br />
+		<b>Note:</b> the name that is passed to this function should be the namespace and class name, in lower case, separated by an underscore. For example, <code>BenMajor\MicroBlog</code> should be
+		checked using <code>pluginInstalled('benmajor_microblog')</code>.
+	</p>
+	
+	<p>
+		<code>getSiteURLFor( $resource )</code>:<br />
+		Return the full URL for a given resource, using the site URL and directory from the config files.
+	</p>
+	
+	<p>
+		<code>createTwigFunction( $functionName, $class, $methodName, $attributes )</code>:<br />
+		Create a new Twig function that can be used in themes.
+	</p>
+	
+	<p>
+		<code>registerShortcode( $code, $callback )</code>:<br />
+		Add a new shortcode to the system.
+	</p>
+	
+	<p>
+		<code>parseShortcodes( $string )</code>:<br />
+		Parse any defined shortcodes that exist within the specified <code>$string</code>.
+	</p>
+
+	<hr />
+
+	<h3>Twig functions:</h3>
+	
+	<p>
+		Micro adds some custom functions that designers can use within their Twig templates. These are as follows:
+	</p>
+	
+	<p>
+		<code>menu( $menuName, $tag = 'ul', $attributes )</code>:<br />
+		Outputs a specific menu that is registered in the system by name. Optionally access the tag to be used in the generated markup, and an array of attributes to be added to the parent element.
+	</p>
+	
+	<p>
+		<code>breadcrumbs( $crumbs, $attributes, $addSchema = true )</code>:<br />
+		Creates a breadcrumbs list from an array of items, with optional attributes and Rich Snippets enabled.
+	</p>
+	
+	<p>
+		<code>meta_title()</code>:<br />
+		Outputs the currently-defined meta title using the site's parameters as a suffix if necessary.
+	</p>
+	
+	<p>
+		<code>canonical_url()</code>:<br />
+		Outputs the currently-defined canonical URL using a <code>&lt;link /&gt;</code> element.
+	</p>
+	
+	<p>
+		<code>markdown( $markdown )</code>:<br />
+		Parse the specified text as Markdown and retrieve the HTML output.
+	</p>
+	
+	<p>
+		<code>micro_head()</code>:<br />
+		Handle all predefined <code>&lt;head&gt;</code> functions.
+	</p>
+	
+	<p>
+		<code>micro_foot()</code>:<br />
+		Handle all predefined code that should be injected by the system immediately before <code>&lt;/body&gt;</code>.
+	</p>
+	
+	<hr />
+	
+	<h3>Things to do before relasing:</h3>
+	
+	<ol>
+		<li><del>Shortcode mechanism</del></li>
+		<li><del>Extract out functions into <code>functions.php</code></del></li>
+		<li><del>Migrate App <code>config</code> to <code>ConfigList</code> model</del></li>
+		<li>Finish Blog plugin</li>
+		<li>Finish theme</li>
+		<li><del>Installer</del></li>
+		<li>Documentation</li>
+		<li><b>TEST!!!!!one</b></li>
+	</ol>
+
+	
+
+{% include 'parts/footer.twig' %}

@@ -1,0 +1,26 @@
+site:
+    url: 'http://localhost'
+    dir: /micro/
+    title: Ben-Major.com
+    titleSeparator: ' | '
+    theme: benmajor
+    cache: false
+    devMode: false
+    timezone: UTC
+    locale: en_GB
+    meta: { title: null, description: null, keywords: {  } }
+    analytics: { utm: null }
+    
+views:
+    page: page.twig
+    
+twig:
+    globals: { dateFormat: 'Y-m-d H:i:s' }
+    
+router:
+    filenameSuffix: .html
+    
+dirs:
+    view: themes
+    content: content
+    plugins: plugins

@@ -1,0 +1,40 @@
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>{{ meta_title() }}</title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <meta name="theme-color" content="#ffd90f" />
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i&display=swap" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700&display=swap" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+        
+        
+        {{ micro_head() }}
+        <link rel="stylesheet/less" href="{{ theme_dir }}/assets/css/ben-major.less" />
+    </head>
+    <body>
+        
+        <div id="wrapper">
+            <div class="container">
+                <header id="masthead" class="clearfix">
+                    <a href="#" title="Return to homepage" id="masthead-brand">
+                        <img src="https://www.gravatar.com/avatar/b864b7510b2cb4ed4a96befe513fbb83?s=75&d=identicon&r=PG" class="brand-logo" />
+                        <span class="brand-name">Ben Major</span>
+                    </a>
+
+                    <a href="#" class="mobile-nav-toggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </a>
+                    
+                    <nav id="masthead-nav">
+                        {{ menu('main')}}
+                    </nav>
+                </header>
+                
+                <main id="content">

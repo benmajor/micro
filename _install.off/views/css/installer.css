@@ -1,0 +1,212 @@
+* {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+body {
+    background: whiteSmoke;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 15px;
+}
+
+.installer-container {
+    margin: 50px auto;
+    max-width: 750px;
+}
+
+.micro-brand {
+    margin: 0 auto 25px;
+    text-align: center;
+    width: 110px
+}
+    .micro-brand:after {
+        clear: both;
+        content: '';
+        display: table;
+        height: 0;
+    }
+    
+    .micro-brand span {
+        float: left
+    }
+    
+    .micro-brand .icon {
+        background: rgba(0,0,0,.15);
+        border-radius: 8px;
+        box-shadow: 0 1px 0 #fff, inset 0 1px rgba(0,0,0,.1);
+        color: whiteSmoke;
+        font-family: 'Helvetica Neue', Helvetica, sans-serif;
+        font-size: 32px;
+        font-style: italic;
+        font-weight: normal;
+        height: 50px;
+        line-height: 40px;
+        text-shadow: 0 -1px 0 rgba(0,0,0,.3);
+        width: 50px;
+    }
+    /*
+    .micro-brand .name {
+        color: #222;
+        font-family: 'Passion One', sans-serif;
+        font-size: 32px;
+        line-height: 30px;
+        margin-left: 7px;
+    }*/
+
+.installer-content {
+    background: #fff;
+    padding: 30px;
+    
+    -webkit-box-shadow: 0 2px 5px rgba(0,0,0,.1);
+       -moz-box-shadow: 0 2px 5px rgba(0,0,0,.1);
+            box-shadow: 0 2px 5px rgba(0,0,0,.1);
+}
+
+/* Typography: */
+p {
+    line-height: 1.65;
+    margin-bottom: 20px;
+}
+
+b,
+strong {
+    font-weight: bold;
+}
+
+code {
+    background: whiteSmoke;
+    color: #9b00b2;
+    display: inline-block;
+    font-family: monospace;
+    font-size: 90%;
+    line-height: normal;
+    padding: 2px 3px;
+}
+
+h3 {
+    color: rgba(0,0,0,.85);
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid rgba(0,0,0,.2);
+    margin: 20px 0;
+}
+
+ul.plain {
+    list-style: none;
+    margin: 0 0 20px;
+    padding: 0;
+}
+
+ul.checklist li {
+    line-height: 35px;
+}
+    ul.checklist li i {
+        font-size: 120%;
+        margin-right: 5px;
+    }
+        ul.checklist li i.good { color: green; }
+        ul.checklist li i.bad  { color: red;   }
+
+.installer-content * {
+    margin-top: 0;
+}
+
+.installer-content *:last-child {
+    margin-bottom: 0;
+}
+
+.btn {
+    background: #eee;
+    background: -moz-linear-gradient(top, #eee 0%, whitSmoke 100%);
+    background: -webkit-linear-gradient(top, #eee 0%, whiteSmoke 100%);
+    background: linear-gradient(to bottom,  #eee 0%, whiteSmoke 100%);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.15);
+    cursor: pointer;
+    display: inline-block;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='whiteSmoke',GradientType=0 );
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    padding: 8px 15px;
+    text-shadow: 0 1px 0 #fff;
+    
+    -webkit-transition: background .1s ease;
+       -moz-transition: background .1s ease;
+            transition: background .1s ease;
+}
+    .btn:hover {
+        background: #eee;
+    }
+    
+.install-field {
+    margin-bottom: 25px;
+}
+    
+.install-field:after {
+    clear: both;
+    content: '';
+    display: table;
+    height: 0;
+}
+
+.install-field .field-label,
+.install-field .field-input {
+    float: left;
+}
+
+.install-field .field-label {
+    font-weight: bold;
+    padding-right: 20px;
+    width: 30%;
+}
+    .install-field .field-label label {
+        cursor: pointer;
+        line-height: 33px;
+    }
+
+.install-field .field-input {
+    width: 60%;
+}
+
+.install-field .field-input input,
+.install-field .field-input select,
+.install-field .field-input textarea {
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    padding: 8px 12px;
+    width: 70%;
+}
+    .install-field .field-input input:focus,
+    .install-field .field-input select:focus,
+    .install-field .field-input textarea:focus {
+        border-color: #000011;
+        outline: none;
+    }
+    
+    .install-field .field-input select[disabled="disabled"] {
+        background: #ff00ff;
+    }
+
+.install-field .help-text {
+    color: #999;
+    font-size: 13px;
+    margin: 7px 0 0;
+}
+
+.alert {
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.alert-danger {
+    background: #DE4B3B;
+    border-left: 3px solid #C43320;
+    color: #fff;
+}

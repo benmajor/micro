@@ -1,0 +1,8 @@
+{% include 'parts/header.twig' %}
+	{{ breadcrumbs() }}
+	
+	{% for post in posts %}
+	{% include 'parts/post.twig' %}
+	{% endfor %}
+
+{% include 'parts/footer.twig' %}

@@ -1,0 +1,16 @@
+- text: Home
+  url: /
+  class: 
+    - first
+
+- text: About
+  url: /about-me.html
+
+- text: Projects
+  url: /projects/
+  children:
+    - text: Chrome Extensions
+      url: /projects/chrome-extensions/
+      children:
+          - text: JSON Viewer
+            url: /projects/chrome-extensions/json-viewer.html

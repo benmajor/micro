@@ -1,0 +1,9 @@
+{% include 'parts/header.twig' %}
+	<div class="{{ meta.type }} {{ meta.id }}">
+		<h1>{{ meta.title }}</h1>
+		
+		{{ breadcrumbs() }}
+		
+		{{ content|raw }}
+	</div>
+{% include 'parts/footer.twig' %}

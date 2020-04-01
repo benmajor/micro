@@ -1,0 +1,21 @@
+{
+    "name": "benmajor/jql",
+    "description": "A query language built with PHP for JSON files and strings",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ben Major",
+            "email": "ben.major88@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">= 5.6.0"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "BenMajor\\JQL\\": "src/"
+        }
+    }
+}

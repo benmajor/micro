@@ -1,0 +1,13 @@
+{
+    "require": {
+        "slim/slim": "3.0",
+        "slim/twig-view": "^2.5",
+        "benmajor/jql": "^1.0",
+        "benmajor/slim3-controller": "^1.0",
+        "guzzlehttp/guzzle": "^6.4",
+        "symfony/yaml": "^4.3",
+        "erusev/parsedown": "^1.7",
+        "ausi/slug-generator": "^1.1",
+        "twig/extensions": "^1.5"
+    }
+}
