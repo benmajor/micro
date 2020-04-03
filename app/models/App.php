@@ -40,6 +40,8 @@ class App
     private $controllers;
     private $request;
     private $response;
+
+    protected $version = '1.0.0';
     
     function __construct( $config, $routes = [ ] )
     {
@@ -493,6 +495,12 @@ class App
         return $this->getTwig()->render( $this->getResponse(), $template, $data);
     }
 
+    # Get the current Micro version:
+    public function getVersion()
+    {
+        return $this->version;
+    }
+
     # Load the menus:
     private function loadMenus()
     {
@@ -554,7 +562,7 @@ class App
         $container['view'] = function ($container) use ($self) {
             
             $view = new \Slim\Views\Twig($self->config->get('dirs.view').DIRECTORY_SEPARATOR.$self->config->get('site.theme'), [
-                'cache' => $self->config->get('site.cache')
+                'cache' => (!$self->config->get('site.devMode') && $self->config->get('site.cache')) ? 'cache' : false
             ]);
         
             // Instantiate and add Slim specific extension
@@ -592,7 +600,9 @@ class App
             }
         }
 
+        # Now add additional useful vars:
         $this->addTwigGlobal('theme_dir', $this->config->get('site.url').$this->config->get('site.dir').$this->config->get('dirs.view').'/'.$this->config->get('site.theme').'/');
+        $this->addTwigGlobal('base_url', $this->config->get('site.url').$this->config->get('site.dir'));
     }
 
     # Set up the Slim middleware:

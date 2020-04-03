@@ -18,10 +18,14 @@ class Page extends ContentItem
         {
             $self = $this;
 
-            $this->app->getSlim()->get( $this->getRoute(), function(Request $request, Response $response, $params) use ($self) {
-                $self->app->setCurrentContentItem( $self );
-                $self->controller->main($self, $request, $response, $params);
-            });
+            # Add routes for the page (adds index.html) if it's an index:
+            foreach( $this->getRoutes() as $route )
+            {
+                $this->app->getSlim()->get( $route, function(Request $request, Response $response, $params) use ($self) {
+                    $self->app->setCurrentContentItem( $self );
+                    $self->controller->main($self, $request, $response, $params);
+                });
+            }
         }
 
         # Build the canonical URL into the meta:
@@ -75,6 +79,12 @@ class Page extends ContentItem
     public function getCanonicalURL()
     {
         return rtrim($this->app->getSiteURL(), '/').str_replace('[/]', '/', $this->getRoute());
+    }
+
+    # Get the canonical URL slug:
+    public function getCanonicalURLPath()
+    {
+        return str_replace('[/]', '/', $this->getRoute());
     }
 
     # Get the template name:

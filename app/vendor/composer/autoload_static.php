@@ -17,6 +17,10 @@ class ComposerStaticInit7dde01d63a7991b4ecbf529c44345d6c
     );
 
     public static $prefixLengthsPsr4 = array (
+        's' => 
+        array (
+            'splitbrain\\phpcli\\' => 18,
+        ),
         'T' => 
         array (
             'Twig\\Extensions\\' => 16,
@@ -61,6 +65,10 @@ class ComposerStaticInit7dde01d63a7991b4ecbf529c44345d6c
     );
 
     public static $prefixDirsPsr4 = array (
+        'splitbrain\\phpcli\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/splitbrain/php-cli/src',
+        ),
         'Twig\\Extensions\\' => 
         array (
             0 => __DIR__ . '/..' . '/twig/extensions/src',

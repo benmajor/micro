@@ -8,6 +8,7 @@
         "symfony/yaml": "^4.3",
         "erusev/parsedown": "^1.7",
         "ausi/slug-generator": "^1.1",
-        "twig/extensions": "^1.5"
+        "twig/extensions": "^1.5",
+        "splitbrain/php-cli": "^1.1"
     }
 }

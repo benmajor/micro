@@ -103,7 +103,7 @@ class ContentItem
     # Get the route:
     public function getRoute()
     {
-        $route = implode( array_values($this->routeInfo) );
+        $route = implode( null, array_values($this->routeInfo) );
 
         if( $route == '/[/]' )
         {
@@ -111,6 +111,30 @@ class ContentItem
         }
 
         return str_replace('//', '/', $route);
+    }
+
+    # Get the routes to register:
+    public function getRoutes()
+    {
+        $parts = array_values($this->routeInfo);
+        $route = str_replace('//', '/', implode(null, $parts));
+
+        if( end($parts) == '[/]' )
+        {
+            return [
+                $route,
+                rtrim($route, '[/]').'/index.html'
+            ];
+        }
+        elseif( end($parts) == '/' )
+        {
+            return [
+                $route,
+                rtrim($route, '/').'/index.html'
+            ];
+        }
+
+        return [ $route ];
     }
 
     # Get the filename:

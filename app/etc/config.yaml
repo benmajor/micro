@@ -4,7 +4,7 @@ site:
     title: Ben-Major.com
     titleSeparator: ' | '
     theme: benmajor
-    cache: false
+    cache: true
     devMode: false
     timezone: UTC
     locale: en_GB

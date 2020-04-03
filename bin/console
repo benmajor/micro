@@ -1,0 +1,21 @@
+#!/usr/bin/env php
+<?php
+
+namespace BenMajor\Micro;
+
+require 'app/vendor/autoload.php';
+require 'app/load.php';
+
+require 'app/models/CLI/CLI.php';
+require 'app/models/CLI/Command.php';
+require 'app/models/CLI/Cache.php';
+
+# Prevent direct access:
+if( PHP_SAPI !== 'cli' ) 
+{
+    echo 'bin/console must be run as a CLI application!';
+    exit(1);
+}
+
+$cli = new CLI\CLI( $app );
+$cli->run();

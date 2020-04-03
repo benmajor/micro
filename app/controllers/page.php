@@ -14,7 +14,7 @@ class Page extends Controller
         $meta = Utils::extendArray($page->getMeta(), [  ]);
         
         # Add the canonical:
-        $meta['canonical_url'] = rtrim($page->app->getSiteURL(), '/').$page->getRoute();
+        $meta['canonical_url'] = $page->getCanonicalURLPath();
         
         $data = [
             'content' => $page->getContent(),
