@@ -6,13 +6,13 @@ class Cache extends Command
 {
 	public function clear()
 	{
-		$start = microtime();
+		$start = $this->microtime_float();
 
 		echo "\n";
 		echo $this->cli->info('Clearing cache, please wait...');
 		system('rm -rf cache/');
 
-		$finished = microtime();
+		$finished = $this->microtime_float();
 
 		if( is_dir('cache/') )
 		{
@@ -24,5 +24,11 @@ class Cache extends Command
 		echo "\n";
 
 		exit(1);
+	}
+
+	private function microtime_float()
+	{
+	    list($usec, $sec) = explode(' ', microtime());
+	    return ((float)$usec + (float)$sec);
 	}
 }
