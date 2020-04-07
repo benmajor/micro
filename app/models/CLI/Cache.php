@@ -19,8 +19,8 @@ class Cache extends Command
 			throw new \Exception( 'Could not clear cache - maybe the cache dir is not writeable?');
 		}
 		
-		echo $this->cli->success('Time take: '.round($finished - $start, 3).'ms');
 		echo $this->cli->success('Micro cache was successfully cleared!');
+		echo $this->cli->success('Time taken: '.round($finished - $start, 3).'ms');
 		echo "\n";
 
 		exit(1);

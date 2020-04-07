@@ -1,0 +1,8 @@
+<?php
+
+namespace BenMajor\Micro\CLI;
+
+class Exception extends \Exception
+{
+	
+}

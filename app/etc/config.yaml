@@ -10,6 +10,10 @@ site:
     locale: en_GB
     meta: { title: null, description: null, keywords: {  } }
     analytics: { utm: null }
+
+cli:
+    enabled: true
+    clearOnCommand: true
     
 views:
     page: page.twig

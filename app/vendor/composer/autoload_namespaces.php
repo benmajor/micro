@@ -10,4 +10,5 @@ return array(
     'Twig_' => array($vendorDir . '/twig/twig/lib'),
     'Pimple' => array($vendorDir . '/pimple/pimple/src'),
     'Parsedown' => array($vendorDir . '/erusev/parsedown'),
+    'FtpClient' => array($vendorDir . '/nicolab/php-ftp-client/src'),
 );
