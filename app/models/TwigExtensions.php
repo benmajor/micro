@@ -127,7 +127,7 @@ class TwigExtensions extends \Twig_Extension
 		}
 
         # Build the HTML string:
-        $html = "\n".'<ol '.implode(array_unique($attributes), ' ').'>';
+        $html = "\n".'<ol '.implode(' ', array_unique($attributes)).'>';
 
         # We need to reverse the breadcrumbs:
         $pos = 1;

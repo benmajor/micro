@@ -67,7 +67,7 @@ class ContentItem
                 $lineNum++;
             }
             
-            $this->meta = Yaml::parse(implode($metaStr, "\n"));
+            $this->meta = Yaml::parse(implode("\n", $metaStr));
         }
         
         # Is there a published status defined?

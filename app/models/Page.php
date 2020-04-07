@@ -46,7 +46,7 @@ class Page extends ContentItem
                 # If it's not index, treate the index as a parent:
                 if( $this->sourceBasename != 'index.mc' )
                 {
-                    $parentDir = $this->app->config->get('dirs.content').DIRECTORY_SEPARATOR.implode($parts, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
+                    $parentDir = $this->app->config->get('dirs.content').DIRECTORY_SEPARATOR.implode(DIRECTORY_SEPARATOR, $parts).DIRECTORY_SEPARATOR;
                 }   
                 else
                 {

@@ -74,7 +74,7 @@ class Menu
             }
         }
 
-        $attributes = implode(array_unique($attributes), ' ');
+        $attributes = implode(' ', array_unique($attributes));
 
         $html = '<'.$tag.$attributes.'>';
 
@@ -152,7 +152,7 @@ class Menu
             $class[] = 'active-parent-item';
         }
 
-        $html.= ' class="'.implode($class, ' ').'">';
+        $html.= ' class="'.implode(' ', $class).'">';
 
         $html.= '<a href="'.rtrim($this->app->config->get('site.url').$this->app->config->get('site.dir'), '/').'/'.ltrim($item['url'], '/').'" title="'.$title.'"'.$target.'">';
         $html.= $item['text'];
@@ -199,7 +199,7 @@ class Menu
             $itemHTML.= $this->getMenuItem($item, $tag, $level + 1, $classes);
         }
 
-        $html = "\n".str_repeat("\t", $level).'<'.$tag.' class="'.implode($menuClass, ' ').'">';
+        $html = "\n".str_repeat("\t", $level).'<'.$tag.' class="'.implode(' ', $menuClass).'">';
         $html.= $itemHTML;
         $html.= '</'.$tag.'>'."\n";
 

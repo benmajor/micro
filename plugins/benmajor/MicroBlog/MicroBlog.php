@@ -175,7 +175,7 @@ class MicroBlog extends \BenMajor\Micro\Plugin
                     $lineNum++;
                 }
                 
-                $meta = $this->app->parseYaml(implode($metaStr, "\n"));
+                $meta = $this->app->parseYaml(implode("\n", $metaStr));
                 
                 if( isset($meta['author']) )
                 {
