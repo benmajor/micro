@@ -146,13 +146,33 @@ class Deploy extends Command
 			}	
 		}
 
-		# Start transferring everything:
+		$this->cli->writeln('4. Deploying to server...');
+
+		foreach( $cwds as $name => $dir )
+		{
+			$target = $dir;
+			$source = ''.basename($dir);
+
+			echo "\n";
+			$this->cli->writeln('Deploying '.$name.'...');
+
+			try
+			{
+				$client->putAll($source, $target);
+				$this->cli->success('Successfully deployed '.$name.' assets!');
+			}	
+			catch( \Exception $e )
+			{
+				$this->cli->abort('Could not deploy '.$name.' assets');
+			}
+		}
 
 
 		$finished = $this->microtime_float();
 
-		#echo $this->cli->success('Micro cache was successfully cleared!');
-		#echo $this->cli->success('Time taken: '.round($finished - $start, 3).'ms');
+		echo "\n";
+		echo $this->cli->success('Micro was successfully deployed to '.$hostname.'!');
+		echo $this->cli->success('Time taken: '.round($finished - $start, 3).'ms');
 		echo "\n";
 
 		exit(1);

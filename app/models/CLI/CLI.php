@@ -175,22 +175,22 @@ class CLI extends PHPCLI
     {
         $colors = [
             'default' => null,
-            'black' => $this->COLOR_BLACK,
-            'grey_dark' => $this->COLOR_DGREY,
-            'grey_light' => $this->COLOR_LGREY,
-            'red' => $this->COLOR_RED,
-            'red_light' => $this->COLOR_LRED,
-            'green' => $this->COLOR_GREEN,
-            'green_light' => $this->COLOR_LGREEN,
-            'brown' => $this->COLOR_BROWN,
-            'yellow' => $this->COLOR_YELLOW,
-            'blue' => $this->COLOR_BLUE,
-            'blue_light' => $this->COLOR_LBLUE,
-            'magenta' => $this->COLOR_MAGENTA,
-            'magenta_light' => $this->COLOR_LMAGENTA,
-            'cyan' => $this->COLOR_CYAN,
-            'cyan_light' => $this->COLOR_LCYAN,
-            'white' => $this->COLOR_WHITE
+            'black' => self::COLOR_BLACK,
+            'grey_dark' => self::COLOR_DGREY,
+            'grey_light' => self::COLOR_LGREY,
+            'red' => self::COLOR_RED,
+            'red_light' => self::COLOR_LRED,
+            'green' => self::COLOR_GREEN,
+            'green_light' => self::COLOR_LGREEN,
+            'brown' => self::COLOR_BROWN,
+            'yellow' => self::COLOR_YELLOW,
+            'blue' => self::COLOR_BLUE,
+            'blue_light' => self::COLOR_LBLUE,
+            'magenta' => self::COLOR_MAGENTA,
+            'magenta_light' => self::COLOR_LMAGENTA,
+            'cyan' => self::COLOR_CYAN,
+            'cyan_light' => self::COLOR_LCYAN,
+            'white' => self::COLOR_WHITE
         ];
 
         if( $leadingNL )
