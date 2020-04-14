@@ -562,7 +562,7 @@ class App
         $container['view'] = function ($container) use ($self) {
             
             $view = new \Slim\Views\Twig($self->config->get('dirs.view').DIRECTORY_SEPARATOR.$self->config->get('site.theme'), [
-                'cache' => (!$self->config->get('site.devMode') && $self->config->get('site.cache')) ? 'cache' : false
+                'cache' => (!$self->config->get('site.devMode') && $self->config->get('twig.cache')) ? 'cache' : false
             ]);
         
             // Instantiate and add Slim specific extension

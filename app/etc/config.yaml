@@ -4,26 +4,21 @@ site:
     title: Ben-Major.com
     titleSeparator: ' | '
     theme: benmajor
-    cache: true
     devMode: false
     timezone: UTC
     locale: en_GB
     meta: { title: null, description: null, keywords: {  } }
     analytics: { utm: null }
-
 cli:
     enabled: true
     clearOnCommand: true
-    
 views:
     page: page.twig
-    
 twig:
     globals: { dateFormat: 'Y-m-d H:i:s' }
-    
+    cache: true
 router:
     filenameSuffix: .html
-    
 dirs:
     view: themes
     content: content

@@ -77,7 +77,7 @@ class ConfigList
                     return $this;
                 }
                 
-                $data = $data[$key];
+                $data = &$data[$key];
             }
             
             $data = $val;
@@ -108,8 +108,11 @@ class ConfigList
     # Save the file (useful after multiple setting):
     public function saveFile()
     {
+        $save = $this->data;
+        unset($save['ftp']);
+
         $file = fopen($this->file, 'w');
-        fwrite($file, Yaml::dump($this->data));
+        fwrite($file, Yaml::dump($save));
         fclose($file);
         
         return $this;

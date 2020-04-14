@@ -56,15 +56,24 @@ class CLI extends PHPCLI
     {
         $options->setHelp('A very minimal example that does nothing but print a version');
 
+        # Generic options:
         $options->registerOption('version', 'print version', 'v');
-        $options->registerOption('env', 'Cache environment to clear', 'e');
 
         # Cache functions:
         $options->registerCommand('cache:clear', 'Clear the Twig cache.');
+        $options->registerCommand('cache:enable', 'Enable the Twig cache.');
+        $options->registerCommand('cache:disable', 'Disable the Twig cache.');
+        $options->registerCommand('cache:status', 'Retrieve the current status of the Twig cache.');
+
+        # Cache options:
+        $options->registerOption('clear', 'Indicate whether or not to clear the cache when enabling.', null, true, 'cache:enable');
 
         # Deployment / plublishing functions:
-        $options->registerCommand('deploy', 'Deploy the Micro instance to the specified FTP server.');
+        $options->registerCommand('deploy', 'Deploy all assets (config, content, themes and plugins) to the specified FTP server.');
         $options->registerCommand('publish', 'Publish all content to the specified FTP server.');
+
+        # Deploy options:
+        $options->registerOption('config', 'Specify whether config files should also be deployed', null, true, 'deploy');
     }
 
     protected function main( Options $opts )
@@ -207,9 +216,13 @@ class CLI extends PHPCLI
     }
 
     # Send an error back to the CLI:
-    public function abort( string $message )
+    public function abort( string $message, $leadingNL = true )
     {
-        echo "\n";
+        if( $leadingNL )
+        {
+            echo "\n";  
+        }
+
         echo $this->error($message);
         echo "\n";
         exit(1);

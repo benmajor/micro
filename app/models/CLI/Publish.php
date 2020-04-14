@@ -2,19 +2,10 @@
 
 namespace BenMajor\Micro\CLI;
 
-class Deploy extends Command
+class Publish extends Command
 {
 	public function main()
 	{
-		# We first need to publish the config file(s):
-		$deployConfig = (bool) $this->options->getOpt('config', false);
-
-		if( $deployConfig )
-		{
-			$confirmDeployConfig = readline('Are you sure you want to deploy all config assets? (y/n) ');
-			echo "\n";
-		}
-
 		$start = $this->microtime_float();
 
 		# Get the details:
@@ -115,99 +106,58 @@ class Deploy extends Command
 
 		# Now set the CWD as the web root:
 		echo "\n";
-		$this->cli->writeln('Setting CWD as "'.$directory.'"...');
+		$num = (isset($foundFlag)) ? 4 : 3;
+		$this->cli->writeln($num.'. Setting CWD as "'.$directory.'"...');
+
+		$cwd = $directory.'/'.$this->app->config->get('dirs.content');
+
 		$this->cli->success('Successfully set CWD as "'.$directory.'"');
 		echo "\n";
 
-		# See if Micro is installed:
-		#if( ! $client->isDir($directory.'/app/etc/') || $client->isEmpty($directory.'/app/etc') )
-		if( false )
+		# Check the directory exist, and ask to create if not:
+		
+		if( ! $client->isDir($cwd) )
 		{
-			$this->cli->warning('Micro does not appear to be installed on the remote server!');
-			$this->cli->info('Run console/bin install to install Micro');
-			$this->cli->abort('Exiting...', false);
-		}
+			$create = readline('Content directory does not exist on remote server. Would you like to create it? (y/n) ');
 
-		# Define the dirs we need to upload:
-		$cwds = [
-			'content' => $directory.'/'.$this->app->config->get('dirs.content'),
-			 'themes' => $directory.'/'.$this->app->config->get('dirs.view'),
-			'plugins' => $directory.'/'.$this->app->config->get('dirs.plugins')
-		];
+			if( strtolower($create) == 'n' )
+			{
+				exit(1);
+			}
+			elseif( strtolower($create) != 'y' )
+			{
+				throw new CLIExpection('Unexpected response, expected "y" or "n".');
+			} 
 
-		# Check the directories exist, and ask to create if not:
-		foreach( $cwds as $name => $cwd )
-		{
+			# Create the directory:
+			$client->mkdir($cwd);
+			
 			if( ! $client->isDir($cwd) )
 			{
-				$create = readline(ucfirst($name).' directory does not exist on remote server. Would you like to create it? (y/n) ');
+				$this->cli->abort('Failed to create content directory!');
+			}
 
-				if( strtolower($create) == 'n' )
-				{
-					exit(1);
-				}
-				elseif( strtolower($create) != 'y' )
-				{
-					throw new CLIExpection('Unexpected response, expected "y" or "n".');
-				} 
-
-				# Create the directory:
-				$client->mkdir($cwd);
-				
-				if( ! $client->isDir($cwd) )
-				{
-					$this->cli->abort('Failed to create '.$name.' directory!');
-				}
-
-				$this->cli->success('Created '.$name.' directory on remote server.');
-				echo "\n";
-			}	
-		}
-
-		$this->cli->writeln('4. Deploying to server...');
-
-		# Are we deploying the config file?
-		if( isset($confirmDeployConfig) && $confirmDeployConfig )
-		{
+			$this->cli->success('Created content directory on remote server.');
 			echo "\n";
-			$this->cli->writeln('Deploying config...');
+		}	
 
-			try
-			{
-				$client->putAll('app/etc', $directory.'/app/etc');
-				$this->cli->success('Successfully deployed config assets!');
-			}
-			catch( \Exception $e )
-			{
-				$this->cli->abort('Failed to deploy config assets! Aborting...');
-			}
-		}
+		$this->cli->writeln('4. Publishing to server...');
 
-		foreach( $cwds as $name => $dir )
+		$target = $dir;
+		$source = basename($cwd);
+
+		try
 		{
-			$target = $dir;
-			$source = ''.basename($dir);
-
-			echo "\n";
-			$this->cli->writeln('Deploying '.$name.'...');
-
-			try
-			{
-				$client->putAll($source, $target);
-				$this->cli->success('Successfully deployed '.$name.' assets!');
-			}	
-			catch( \Exception $e )
-			{
-				$this->cli->abort('Failed to deploy '.$name.' assets! Aborting...');
-			}
+			$client->putAll($source, $target);
+			$this->cli->success('Content was successfully published to '.$hostname.'!');
+		}	
+		catch( \Exception $e )
+		{
+			$this->cli->abort('Could not publish content!');
 		}
-
 
 		$finished = $this->microtime_float();
-
-		echo "\n";
-		echo $this->cli->success('Micro was successfully deployed to '.$hostname.'!');
-		echo $this->cli->success('Time taken: '.round($finished - $start, 3).'ms');
+		$this->cli->success('Time taken: '.round($finished - $start, 3).'ms');
 		echo "\n";
 
 		exit(1);

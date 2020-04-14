@@ -26,9 +26,54 @@ class Cache extends Command
 		exit(1);
 	}
 
-	private function microtime_float()
+	# Enable the cache:
+	public function enable( $clear = true )
 	{
-	    list($usec, $sec) = explode(' ', microtime());
-	    return ((float)$usec + (float)$sec);
+		if( (bool) $this->options->getOpt('clear', false) )
+		{
+			$this->clear();
+		}
+
+		try
+		{
+			$this->app->config->set('twig.cache', true);
+			$this->app->config->saveFile();
+			$this->cli->success('Cache successfully enabled');
+		}	
+		catch( \Exception $e )
+		{
+			$this->cli->abort('Could not enable cache! Aborting...');
+		}
 	}
+
+	# Disable the cache:
+	public function disable()
+	{
+		try
+		{
+			$this->app->config->set('twig.cache', false);
+			$this->app->config->saveFile();
+			$this->cli->success('Cache successfully disabled');
+		}	
+		catch( \Exception $e )
+		{
+			$this->cli->abort('Could not disnable cache! Aborting...');
+		}
+	}
+
+	# Get the status of the cache:
+	public function status()
+	{
+		$str = ($this->app->config->get('twig.cache')) ? 'ENABLED' : 'DISABLED';
+		$opp = ($this->app->config->get('twig.cache')) ? 'disable' : 'enable';
+
+		$this->cli->info('Twig cache is currently '.$str);
+		$perform = readline('Would you like to '.$opp.' it? (y/n) ');
+
+		if( strtolower($perform) == 'y' )
+		{
+			$this->$opp();
+		}
+	}
+
 }
